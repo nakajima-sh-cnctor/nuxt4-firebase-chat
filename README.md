@@ -1,24 +1,38 @@
-# Nuxt Minimal Starter
+# nuxt3-firebase-chat
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A Nuxt 3 project with Firebase authentication.
 
 ## Setup
 
-Make sure to install dependencies:
+Make sure to install the dependencies:
 
 ```bash
 # npm
 npm install
 
-# pnpm
-pnpm install
-
 # yarn
 yarn install
 
-# bun
-bun install
+# pnpm
+pnpm install
 ```
+
+## Firebase設定
+
+1. Firebaseプロジェクトを作成し、Webアプリを追加
+2. 環境変数を設定：
+
+```bash
+# .envファイルを作成
+FIREBASE_API_KEY=your-api-key
+FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+FIREBASE_MESSAGING_SENDER_ID=123456789
+FIREBASE_APP_ID=your-app-id
+```
+
+3. FirebaseコンソールでAuthenticationを有効化し、メール/パスワード認証を設定
 
 ## Development Server
 
@@ -28,48 +42,39 @@ Start the development server on `http://localhost:3000`:
 # npm
 npm run dev
 
-# pnpm
-pnpm dev
-
 # yarn
 yarn dev
 
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
 # pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+pnpm dev
 ```
 
-Locally preview production build:
+## Features
 
-```bash
-# npm
-npm run preview
+- Firebase Authentication
+- Email/Password login and signup
+- Real-time auth state management
+- Responsive UI
 
-# pnpm
-pnpm preview
+## Project Structure
 
-# yarn
-yarn preview
-
-# bun
-bun run preview
+```
+├── app/
+│   └── app.vue          # Main application component
+├── composables/
+│   └── useAuth.ts       # Authentication composable
+├── plugins/
+│   └── firebase.client.ts # Firebase initialization
+├── nuxt.config.ts       # Nuxt configuration
+└── package.json
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Usage
+
+The application provides a simple authentication interface where users can:
+
+- Sign up with email and password
+- Log in with existing credentials
+- Log out from their account
+
+The authentication state is automatically managed and persisted across page reloads.
