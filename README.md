@@ -1,6 +1,6 @@
-# nuxt3-firebase-chat
+# nuxt4-firebase-chat
 
-A Nuxt 3 project with Firebase authentication.
+A Nuxt 4 project with Firebase authentication.
 
 ## Setup
 
