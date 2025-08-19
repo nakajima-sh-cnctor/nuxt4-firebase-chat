@@ -1,6 +1,15 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
+import { getAuth, type Auth } from 'firebase/auth'
 import { defineNuxtPlugin, useRuntimeConfig } from 'nuxt/app'
+
+interface FirebaseConfig {
+  apiKey: string
+  authDomain: string
+  projectId: string
+  storageBucket: string
+  messagingSenderId: string
+  appId: string
+}
 
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
@@ -11,18 +20,18 @@ export default defineNuxtPlugin(() => {
     console.error('Firebase設定が正しく設定されていません。.envファイルを確認してください。')
     return {
       provide: {
-        auth: null as any
+        auth: null as Auth | null
       }
     }
   }
   
-  const firebaseConfig = {
-    apiKey: (config.public.firebase as any)?.apiKey,
-    authDomain: (config.public.firebase as any)?.authDomain,
-    projectId: (config.public.firebase as any)?.projectId,
-    storageBucket: (config.public.firebase as any)?.storageBucket,
-    messagingSenderId: (config.public.firebase as any)?.messagingSenderId,
-    appId: (config.public.firebase as any)?.appId
+  const firebaseConfig: FirebaseConfig = {
+    apiKey: config.public.firebase.apiKey,
+    authDomain: config.public.firebase.authDomain,
+    projectId: config.public.firebase.projectId,
+    storageBucket: config.public.firebase.storageBucket,
+    messagingSenderId: config.public.firebase.messagingSenderId,
+    appId: config.public.firebase.appId
   }
 
   // Firebase初期化
@@ -31,7 +40,7 @@ export default defineNuxtPlugin(() => {
 
   return {
     provide: {
-      auth
+      auth: auth as Auth | null
     }
   }
 }) 

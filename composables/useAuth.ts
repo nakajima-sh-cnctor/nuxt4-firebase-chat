@@ -3,14 +3,15 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  type User
+  type User,
+  type Auth
 } from 'firebase/auth'
 import { useNuxtApp } from 'nuxt/app'
 import { ref, onMounted, onUnmounted, readonly } from 'vue'
 
 export const useAuth = () => {
   const { $auth } = useNuxtApp()
-  const auth = $auth as any
+  const auth = $auth as Auth | null
   const user = ref<User | null>(null)
   const loading = ref(true)
 

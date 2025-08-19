@@ -8,13 +8,13 @@
     
     <div v-else-if="user" class="authenticated">
       <h2>ようこそ、{{ user.email }}さん！</h2>
-      <button @click="handleLogout" class="btn btn-danger">ログアウト</button>
+      <button class="btn btn-danger" @click="handleLogout">ログアウト</button>
     </div>
     
     <div v-else class="auth-form">
       <h2>ログイン / サインアップ</h2>
       
-      <form @submit.prevent="handleSubmit" class="form">
+      <form class="form" @submit.prevent="handleSubmit">
         <div class="form-group">
           <label for="email">メールアドレス</label>
           <input 
@@ -23,7 +23,7 @@
             type="email" 
             required 
             class="input"
-          />
+          >
         </div>
         
         <div class="form-group">
@@ -34,12 +34,12 @@
             type="password" 
             required 
             class="input"
-          />
+          >
         </div>
         
         <div class="buttons">
           <button type="submit" class="btn btn-primary">ログイン</button>
-          <button type="button" @click="handleSignup" class="btn btn-secondary">サインアップ</button>
+          <button type="button" class="btn btn-secondary" @click="handleSignup">サインアップ</button>
         </div>
       </form>
       
