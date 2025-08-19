@@ -1,48 +1,48 @@
 <template>
   <div class="container">
     <h1>Firebase認証テスト</h1>
-    
-    <div v-if="loading" class="loading">
-      読み込み中...
-    </div>
-    
+
+    <div v-if="loading" class="loading">読み込み中...</div>
+
     <div v-else-if="user" class="authenticated">
       <h2>ようこそ、{{ user.email }}さん！</h2>
       <button class="btn btn-danger" @click="handleLogout">ログアウト</button>
     </div>
-    
+
     <div v-else class="auth-form">
       <h2>ログイン / サインアップ</h2>
-      
+
       <form class="form" @submit.prevent="handleSubmit">
         <div class="form-group">
           <label for="email">メールアドレス</label>
-          <input 
+          <input
             id="email"
-            v-model="email" 
-            type="email" 
-            required 
+            v-model="email"
+            type="email"
+            required
             class="input"
-          >
+          />
         </div>
-        
+
         <div class="form-group">
           <label for="password">パスワード</label>
-          <input 
+          <input
             id="password"
-            v-model="password" 
-            type="password" 
-            required 
+            v-model="password"
+            type="password"
+            required
             class="input"
-          >
+          />
         </div>
-        
+
         <div class="buttons">
           <button type="submit" class="btn btn-primary">ログイン</button>
-          <button type="button" class="btn btn-secondary" @click="handleSignup">サインアップ</button>
+          <button type="button" class="btn btn-secondary" @click="handleSignup">
+            サインアップ
+          </button>
         </div>
       </form>
-      
+
       <div v-if="error" class="error">
         {{ error }}
       </div>
@@ -62,7 +62,7 @@ const error = ref('')
 const handleSubmit = async () => {
   error.value = ''
   const result = await login(email.value, password.value)
-  
+
   if (result.error) {
     error.value = result.error.message
   } else {
@@ -74,7 +74,7 @@ const handleSubmit = async () => {
 const handleSignup = async () => {
   error.value = ''
   const result = await signup(email.value, password.value)
-  
+
   if (result.error) {
     error.value = result.error.message
   } else {
@@ -86,7 +86,7 @@ const handleSignup = async () => {
 const handleLogout = async () => {
   error.value = ''
   const result = await logout()
-  
+
   if (result.error) {
     error.value = result.error.message
   }

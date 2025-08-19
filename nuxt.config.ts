@@ -3,10 +3,8 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  modules: [
-    '@nuxt/eslint'
-  ],
-  
+  modules: ['@nuxt/eslint'],
+
   // Firebase設定
   runtimeConfig: {
     public: {
@@ -16,16 +14,16 @@ export default defineNuxtConfig({
         projectId: process.env.FIREBASE_PROJECT_ID,
         storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
         messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-        appId: process.env.FIREBASE_APP_ID
-      }
-    }
+        appId: process.env.FIREBASE_APP_ID,
+      },
+    },
   },
 
   // プラグインとコンポーザブルを有効化
   plugins: ['plugins/firebase.client.ts'],
-  
+
   // コンポーザブルを自動インポート
   imports: {
-    dirs: ['composables']
-  }
+    dirs: ['composables'],
+  },
 })
