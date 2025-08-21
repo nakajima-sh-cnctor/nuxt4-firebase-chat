@@ -7,7 +7,7 @@ import {
   type Auth,
 } from 'firebase/auth'
 import { useNuxtApp } from 'nuxt/app'
-import { ref, onMounted, onUnmounted, readonly } from 'vue'
+// import { ref, onMounted, onUnmounted, readonly } from 'vue'
 
 export const useAuth = () => {
   const { $auth } = useNuxtApp()
