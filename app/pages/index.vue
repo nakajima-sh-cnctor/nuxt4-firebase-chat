@@ -51,8 +51,6 @@
 </template>
 
 <script setup>
-import { useAuth } from '../composables/useAuth'
-
 const { user, loading, login, signup, logout } = useAuth()
 
 const email = ref('')

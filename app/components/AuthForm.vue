@@ -18,15 +18,21 @@
       autocomplete="current-password"
       @click:append="show2 = !show2"
     ></v-text-field>
-    <v-btn color="primary" class="mt-4" type="submit" block>{{
-      btnLabel
-    }}</v-btn>
+    <v-btn
+      :loading="loading"
+      color="primary"
+      class="mt-4"
+      type="submit"
+      block
+      >{{ btnLabel }}</v-btn
+    >
   </v-form>
 </template>
 
 <script setup lang="ts">
 defineProps<{
   btnLabel: string
+  loading?: boolean
 }>()
 
 const email = ref('')
@@ -38,7 +44,10 @@ const emailRules = [
   (v: string) => !!v || 'メールアドレスは必須です',
   (v: string) => /.+@.+\..+/.test(v) || 'メールアドレスが不正です',
 ]
-const passwordRules = [(v: string) => !!v || 'パスワードは必須です']
+const passwordRules = [
+  (v: string) => !!v || 'パスワードは必須です',
+  (v: string) => v.length >= 6 || 'パスワードは6文字以上で入力してください',
+]
 
 const emit = defineEmits(['submit'])
 

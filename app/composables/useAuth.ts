@@ -53,6 +53,7 @@ export const useAuth = () => {
 
   // サインアップ
   const signup = async (email: string, password: string) => {
+    loading.value = true
     if (!auth) {
       return {
         user: null,
@@ -68,6 +69,8 @@ export const useAuth = () => {
       return { user: userCredential.user, error: null }
     } catch (error) {
       return { user: null, error: error as Error }
+    } finally {
+      loading.value = false
     }
   }
 
