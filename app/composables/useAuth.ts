@@ -23,7 +23,6 @@ export const useAuth = () => {
     }
 
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log('currentUser', currentUser)
       user.value = currentUser
       loading.value = false
     })
