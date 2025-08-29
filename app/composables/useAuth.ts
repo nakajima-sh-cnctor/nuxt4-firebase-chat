@@ -17,16 +17,27 @@ export const useAuth = () => {
 
   // 認証状態の監視
   onMounted(() => {
+    // Firebase Authが初期化されていない場合は処理を終了
     if (!auth) {
       loading.value = false
       return
     }
 
+    // Firebase Authの状態変更を監視するリスナーを設定
+    // ユーザーのログイン・ログアウト状態が変更されるたびに実行される
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      // ユーザーが未認証の場合、ログインページにリダイレクト
+      if (!currentUser) {
+        navigateTo('/login')
+      }
+      // 現在のユーザー情報をリアクティブな変数に保存
       user.value = currentUser
+      // ローディング状態を解除
       loading.value = false
     })
 
+    // コンポーネントがアンマウントされる際にリスナーを解除
+    // メモリリークを防ぐためのクリーンアップ処理
     onUnmounted(() => unsubscribe())
   })
 

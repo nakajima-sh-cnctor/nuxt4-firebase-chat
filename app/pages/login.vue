@@ -41,7 +41,7 @@ const loginSubmit = async (data: { email: string; password: string }) => {
     error.value = result.error.message
   } else {
     // ログイン成功時にindexページに遷移
-    await navigateTo('/')
+    await navigateTo('/home')
   }
 }
 </script>
