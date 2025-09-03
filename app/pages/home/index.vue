@@ -52,6 +52,14 @@
 
     <v-card-actions class="justify-center">
       <v-btn
+        color="primary"
+        variant="outlined"
+        prepend-icon="mdi-lock-reset"
+        @click="navigateTo('/home/change-password')"
+      >
+        パスワード変更
+      </v-btn>
+      <v-btn
         color="error"
         variant="outlined"
         :loading="logoutLoading"

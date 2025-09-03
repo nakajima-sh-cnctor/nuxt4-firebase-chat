@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updatePassword,
   type User,
   type Auth,
 } from 'firebase/auth'
@@ -97,11 +98,27 @@ export const useAuth = () => {
     }
   }
 
+  // パスワード変更
+  const changePassword = async (newPassword: string) => {
+    if (!auth || !user.value) {
+      return {
+        error: new Error('ユーザーが認証されていません'),
+      }
+    }
+    try {
+      await updatePassword(user.value, newPassword)
+      return { error: null }
+    } catch (error) {
+      return { error: error as Error }
+    }
+  }
+
   return {
     user: readonly(user),
     loading: readonly(loading),
     login,
     signup,
     logout,
+    changePassword,
   }
 }
