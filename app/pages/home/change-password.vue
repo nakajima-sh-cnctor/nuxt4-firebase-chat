@@ -1,36 +1,3 @@
-<template>
-  <v-card class="mx-auto my-8" max-width="500">
-    <v-card-item>
-      <v-card-title>パスワード変更</v-card-title>
-      <v-card-subtitle>
-        現在のパスワードを入力して、新しいパスワードに変更してください
-      </v-card-subtitle>
-    </v-card-item>
-    <v-card-item>
-      <v-alert
-        v-if="error"
-        type="error"
-        :text="error"
-        variant="tonal"
-        class="mb-4"
-      />
-      <v-alert
-        v-if="success"
-        type="success"
-        text="パスワードが正常に変更されました"
-        variant="tonal"
-        class="mb-4"
-      />
-      <PasswordChangeForm @submit="handlePasswordChange" />
-      <div class="mt-4 text-center">
-        <v-btn variant="text" color="primary" @click="navigateTo('/home')">
-          ホームに戻る
-        </v-btn>
-      </div>
-    </v-card-item>
-  </v-card>
-</template>
-
 <script setup lang="ts">
 import PasswordChangeForm from '~/components/PasswordChangeForm.vue'
 
@@ -64,3 +31,36 @@ const handlePasswordChange = async (data: {
   }
 }
 </script>
+
+<template>
+  <v-card class="mx-auto my-8" max-width="500">
+    <v-card-item>
+      <v-card-title>パスワード変更</v-card-title>
+      <v-card-subtitle>
+        現在のパスワードを入力して、新しいパスワードに変更してください
+      </v-card-subtitle>
+    </v-card-item>
+    <v-card-item>
+      <v-alert
+        v-if="error"
+        type="error"
+        :text="error"
+        variant="tonal"
+        class="mb-4"
+      />
+      <v-alert
+        v-if="success"
+        type="success"
+        text="パスワードが正常に変更されました"
+        variant="tonal"
+        class="mb-4"
+      />
+      <PasswordChangeForm @submit="handlePasswordChange" />
+      <div class="mt-4 text-center">
+        <v-btn variant="text" color="primary" @click="navigateTo('/home')">
+          ホームに戻る
+        </v-btn>
+      </div>
+    </v-card-item>
+  </v-card>
+</template>

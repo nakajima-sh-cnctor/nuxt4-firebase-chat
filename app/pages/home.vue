@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { loading } = useAuth()
+</script>
+
 <template>
   <div>
     <!-- ローディング状態 -->
@@ -14,10 +18,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-const { loading } = useAuth()
-</script>
 
 <style scoped>
 .loading {

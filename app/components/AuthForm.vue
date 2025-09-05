@@ -1,34 +1,3 @@
-<template>
-  <v-form ref="form" @submit.prevent="submit">
-    <v-text-field
-      v-model="email"
-      color="primary"
-      variant="underlined"
-      label="メールアドレス"
-      :rules="emailRules"
-      autocomplete="email"
-    />
-    <v-text-field
-      v-model="password"
-      :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-      :rules="passwordRules"
-      :type="show2 ? 'text' : 'password'"
-      label="パスワード"
-      variant="underlined"
-      autocomplete="current-password"
-      @click:append="show2 = !show2"
-    ></v-text-field>
-    <v-btn
-      :loading="loading"
-      color="primary"
-      class="mt-4"
-      type="submit"
-      block
-      >{{ btnLabel }}</v-btn
-    >
-  </v-form>
-</template>
-
 <script setup lang="ts">
 defineProps<{
   btnLabel: string
@@ -59,3 +28,34 @@ const submit = async () => {
   }
 }
 </script>
+
+<template>
+  <v-form ref="form" @submit.prevent="submit">
+    <v-text-field
+      v-model="email"
+      color="primary"
+      variant="underlined"
+      label="メールアドレス"
+      :rules="emailRules"
+      autocomplete="email"
+    />
+    <v-text-field
+      v-model="password"
+      :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+      :rules="passwordRules"
+      :type="show2 ? 'text' : 'password'"
+      label="パスワード"
+      variant="underlined"
+      autocomplete="current-password"
+      @click:append="show2 = !show2"
+    ></v-text-field>
+    <v-btn
+      :loading="loading"
+      color="primary"
+      class="mt-4"
+      type="submit"
+      block
+      >{{ btnLabel }}</v-btn
+    >
+  </v-form>
+</template>

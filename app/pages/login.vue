@@ -1,3 +1,23 @@
+<script setup lang="ts">
+import AuthForm from '~/components/AuthForm.vue'
+
+const { login } = useAuth()
+
+const error = ref('')
+
+const loginSubmit = async (data: { email: string; password: string }) => {
+  error.value = ''
+  const result = await login(data.email, data.password)
+
+  if (result.error) {
+    error.value = result.error.message
+  } else {
+    // ログイン成功時にindexページに遷移
+    await navigateTo('/home')
+  }
+}
+</script>
+
 <template>
   <v-card class="mx-auto my-8" max-width="400">
     <v-card-item>
@@ -25,23 +45,3 @@
     </v-card-item>
   </v-card>
 </template>
-
-<script setup lang="ts">
-import AuthForm from '~/components/AuthForm.vue'
-
-const { login } = useAuth()
-
-const error = ref('')
-
-const loginSubmit = async (data: { email: string; password: string }) => {
-  error.value = ''
-  const result = await login(data.email, data.password)
-
-  if (result.error) {
-    error.value = result.error.message
-  } else {
-    // ログイン成功時にindexページに遷移
-    await navigateTo('/home')
-  }
-}
-</script>

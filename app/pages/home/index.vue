@@ -1,3 +1,41 @@
+<script setup lang="ts">
+const { user, logout } = useAuth()
+
+const error = ref('')
+const logoutLoading = ref(false)
+
+const handleLogout = async () => {
+  error.value = ''
+  logoutLoading.value = true
+
+  try {
+    const result = await logout()
+
+    if (result.error) {
+      error.value = result.error.message
+    } else {
+      // ログアウト成功時にログインページに遷移
+      await navigateTo('/login')
+    }
+  } catch {
+    error.value = 'ログアウト中にエラーが発生しました'
+  } finally {
+    logoutLoading.value = false
+  }
+}
+
+const formatDate = (dateString: string | undefined) => {
+  if (!dateString) return '不明'
+  return new Date(dateString).toLocaleDateString('ja-JP', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+}
+</script>
+
 <template>
   <!-- 認証済みユーザー -->
   <v-card class="mx-auto" max-width="600">
@@ -71,41 +109,3 @@
     </v-card-actions>
   </v-card>
 </template>
-
-<script setup lang="ts">
-const { user, logout } = useAuth()
-
-const error = ref('')
-const logoutLoading = ref(false)
-
-const handleLogout = async () => {
-  error.value = ''
-  logoutLoading.value = true
-
-  try {
-    const result = await logout()
-
-    if (result.error) {
-      error.value = result.error.message
-    } else {
-      // ログアウト成功時にログインページに遷移
-      await navigateTo('/login')
-    }
-  } catch {
-    error.value = 'ログアウト中にエラーが発生しました'
-  } finally {
-    logoutLoading.value = false
-  }
-}
-
-const formatDate = (dateString: string | undefined) => {
-  if (!dateString) return '不明'
-  return new Date(dateString).toLocaleDateString('ja-JP', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  })
-}
-</script>

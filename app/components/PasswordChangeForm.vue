@@ -1,41 +1,3 @@
-<template>
-  <v-form ref="form" @submit.prevent="submit">
-    <v-text-field
-      v-model="currentPassword"
-      :append-icon="showCurrent ? 'mdi-eye' : 'mdi-eye-off'"
-      :rules="passwordRules"
-      :type="showCurrent ? 'text' : 'password'"
-      label="現在のパスワード"
-      variant="underlined"
-      autocomplete="current-password"
-      @click:append="showCurrent = !showCurrent"
-    />
-    <v-text-field
-      v-model="newPassword"
-      :append-icon="showNew ? 'mdi-eye' : 'mdi-eye-off'"
-      :rules="newPasswordRules"
-      :type="showNew ? 'text' : 'password'"
-      label="新しいパスワード"
-      variant="underlined"
-      autocomplete="new-password"
-      @click:append="showNew = !showNew"
-    />
-    <v-text-field
-      v-model="confirmPassword"
-      :append-icon="showConfirm ? 'mdi-eye' : 'mdi-eye-off'"
-      :rules="confirmPasswordRules"
-      :type="showConfirm ? 'text' : 'password'"
-      label="新しいパスワード（確認）"
-      variant="underlined"
-      autocomplete="new-password"
-      @click:append="showConfirm = !showConfirm"
-    />
-    <v-btn :loading="loading" color="primary" class="mt-4" type="submit" block>
-      パスワードを変更
-    </v-btn>
-  </v-form>
-</template>
-
 <script setup lang="ts">
 const currentPassword = ref('')
 const newPassword = ref('')
@@ -74,3 +36,41 @@ const submit = async () => {
   }
 }
 </script>
+
+<template>
+  <v-form ref="form" @submit.prevent="submit">
+    <v-text-field
+      v-model="currentPassword"
+      :append-icon="showCurrent ? 'mdi-eye' : 'mdi-eye-off'"
+      :rules="passwordRules"
+      :type="showCurrent ? 'text' : 'password'"
+      label="現在のパスワード"
+      variant="underlined"
+      autocomplete="current-password"
+      @click:append="showCurrent = !showCurrent"
+    />
+    <v-text-field
+      v-model="newPassword"
+      :append-icon="showNew ? 'mdi-eye' : 'mdi-eye-off'"
+      :rules="newPasswordRules"
+      :type="showNew ? 'text' : 'password'"
+      label="新しいパスワード"
+      variant="underlined"
+      autocomplete="new-password"
+      @click:append="showNew = !showNew"
+    />
+    <v-text-field
+      v-model="confirmPassword"
+      :append-icon="showConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+      :rules="confirmPasswordRules"
+      :type="showConfirm ? 'text' : 'password'"
+      label="新しいパスワード（確認）"
+      variant="underlined"
+      autocomplete="new-password"
+      @click:append="showConfirm = !showConfirm"
+    />
+    <v-btn :loading="loading" color="primary" class="mt-4" type="submit" block>
+      パスワードを変更
+    </v-btn>
+  </v-form>
+</template>
