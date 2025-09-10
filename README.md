@@ -60,13 +60,29 @@ pnpm dev
 
 ```
 ├── app/
-│   └── app.vue          # Main application component
-├── composables/
-│   └── useAuth.ts       # Authentication composable
+│   ├── app.vue                    # Main application component
+│   ├── components/
+│   │   ├── AuthForm.vue          # Authentication form component
+│   │   └── PasswordChangeForm.vue # Password change form component
+│   ├── composables/
+│   │   └── useAuth.ts            # Authentication composable
+│   └── pages/
+│       ├── home/
+│       │   ├── change-password.vue # Password change page
+│       │   └── index.vue         # Home page
+│       ├── home.vue              # Home layout
+│       ├── login.vue             # Login page
+│       └── signup.vue            # Signup page
 ├── plugins/
-│   └── firebase.client.ts # Firebase initialization
-├── nuxt.config.ts       # Nuxt configuration
-└── package.json
+│   └── firebase.client.ts        # Firebase initialization
+├── public/
+│   ├── favicon.ico
+│   └── robots.txt
+├── eslint.config.js              # ESLint configuration
+├── nuxt.config.ts                # Nuxt configuration
+├── package.json
+├── tsconfig.json                 # TypeScript configuration
+└── README.md
 ```
 
 ## Usage
