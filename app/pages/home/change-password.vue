@@ -1,11 +1,15 @@
 <script setup lang="ts">
+// パスワード変更フォームコンポーネントをインポート
 import PasswordChangeForm from '~/components/PasswordChangeForm.vue'
 
+// 認証関連のcomposableを使用
 const { changePassword } = useAuth()
 
+// エラー状態と成功状態の管理
 const error = ref('')
 const success = ref(false)
 
+// パスワード変更処理
 const handlePasswordChange = async (data: {
   currentPassword: string
   newPassword: string

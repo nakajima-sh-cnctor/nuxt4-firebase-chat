@@ -1,20 +1,25 @@
 <script setup lang="ts">
+// スレッド作成フォームコンポーネントをインポート
 import ThreadForm from '~/components/ThreadForm.vue'
 
+// 認証とスレッド関連のcomposableを使用
 const { user } = useAuth()
 const { createThread, loading } = useThread()
 const error = ref<string | null>(null)
 
+// スレッド作成処理
 const createThreadHandler = async (data: {
   title: string
   description: string
 }) => {
+  // ユーザー認証チェック
   if (!user.value) {
     error.value = 'ユーザーが認証されていません'
     return
   }
   error.value = null
 
+  // スレッド作成API呼び出し
   const result = await createThread(
     data.title,
     data.description,

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// プロパティの型定義
 interface Props {
   initialTitle?: string
   initialDescription?: string
@@ -6,6 +7,7 @@ interface Props {
   disabled?: boolean
 }
 
+// プロパティのデフォルト値設定
 const props = withDefaults(defineProps<Props>(), {
   initialTitle: '',
   initialDescription: '',
@@ -13,19 +15,25 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
 })
 
+// フォームの状態管理
 const title = ref(props.initialTitle)
 const description = ref(props.initialDescription)
 const form = ref()
 
+// バリデーションルールの定義
 const titleRules = [(v: string) => !!v || 'スレッド名は必須です']
 const descriptionRules = [(v: string) => !!v || 'スレッド概要は必須です']
 
+// 親コンポーネントへのイベント送信
 const emit = defineEmits(['submit'])
 
+// フォーム送信処理
 const submit = async () => {
   if (form.value) {
+    // バリデーション実行
     const { valid } = await form.value.validate()
     if (!valid) return
+    // 親コンポーネントにスレッドデータを送信
     emit('submit', { title: title.value, description: description.value })
   }
 }

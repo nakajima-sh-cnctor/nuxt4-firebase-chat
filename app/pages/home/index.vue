@@ -1,9 +1,12 @@
 <script setup lang="ts">
+// 認証関連のcomposableを使用
 const { user, logout } = useAuth()
 
+// エラー状態とローディング状態の管理
 const error = ref('')
 const logoutLoading = ref(false)
 
+// ログアウト処理
 const handleLogout = async () => {
   error.value = ''
   logoutLoading.value = true
@@ -24,6 +27,7 @@ const handleLogout = async () => {
   }
 }
 
+// 日付フォーマット関数
 const formatDate = (dateString: string | undefined) => {
   if (!dateString) return '不明'
   return new Date(dateString).toLocaleDateString('ja-JP', {

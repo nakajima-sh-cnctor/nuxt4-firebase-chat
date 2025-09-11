@@ -1,13 +1,15 @@
 <script setup lang="ts">
+// フォームの状態管理
 const currentPassword = ref('')
 const newPassword = ref('')
 const confirmPassword = ref('')
-const showCurrent = ref(false)
-const showNew = ref(false)
-const showConfirm = ref(false)
+const showCurrent = ref(false) // 現在のパスワード表示/非表示
+const showNew = ref(false) // 新しいパスワード表示/非表示
+const showConfirm = ref(false) // 確認パスワード表示/非表示
 const form = ref()
-const loading = ref(false)
+const loading = ref(false) // ローディング状態
 
+// バリデーションルールの定義
 const passwordRules = [(v: string) => !!v || 'パスワードは必須です']
 
 const newPasswordRules = [
@@ -20,18 +22,24 @@ const confirmPasswordRules = [
   (v: string) => v === newPassword.value || 'パスワードが一致しません',
 ]
 
+// 親コンポーネントへのイベント送信
 const emit = defineEmits(['submit'])
 
+// フォーム送信処理
 const submit = async () => {
   if (form.value) {
+    // バリデーション実行
     const { valid } = await form.value.validate()
     if (!valid) return
 
+    // ローディング状態を開始
     loading.value = true
+    // 親コンポーネントにパスワード変更データを送信
     emit('submit', {
       currentPassword: currentPassword.value,
       newPassword: newPassword.value,
     })
+    // ローディング状態を終了
     loading.value = false
   }
 }
