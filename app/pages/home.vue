@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AuthLoading from '~/components/authLoading.vue'
+import AuthLoading from '~/components/AuthLoading.vue'
 </script>
 
 <template>
