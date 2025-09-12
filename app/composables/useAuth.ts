@@ -34,7 +34,9 @@ export const useAuth = () => {
       // 現在のユーザー情報をリアクティブな変数に保存
       user.value = currentUser
       // ローディング状態を解除
-      loading.value = false
+      setTimeout(() => {
+        loading.value = false
+      }, 200)
     })
 
     // コンポーネントがアンマウントされる際にリスナーを解除

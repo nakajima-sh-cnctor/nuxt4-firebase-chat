@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // 認証関連のcomposableを使用
-const { user, logout } = useAuth()
+const { user, logout, loading } = useAuth()
 
 // エラー状態とローディング状態の管理
 const error = ref('')
@@ -42,7 +42,7 @@ const formatDate = (dateString: string | undefined) => {
 
 <template>
   <!-- 認証済みユーザー -->
-  <v-card class="mx-auto" max-width="600">
+  <v-card v-if="!loading" class="mx-auto" max-width="600">
     <v-card-item>
       <v-card-title class="text-center">
         ようこそ、{{ user?.email }}さん！
