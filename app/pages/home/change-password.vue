@@ -3,7 +3,7 @@
 import PasswordChangeForm from '~/components/PasswordChangeForm.vue'
 
 // 認証関連のcomposableを使用
-const { changePassword } = useAuth()
+const { changePassword, loading } = useAuth()
 
 // エラー状態と成功状態の管理
 const error = ref('')
@@ -37,7 +37,7 @@ const handlePasswordChange = async (data: {
 </script>
 
 <template>
-  <v-card class="mx-auto my-8" max-width="500">
+  <v-card v-if="!loading" class="mx-auto my-8" max-width="500">
     <v-card-item>
       <v-card-title>パスワード変更</v-card-title>
       <v-card-subtitle>
