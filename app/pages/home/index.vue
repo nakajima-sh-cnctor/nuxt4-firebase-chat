@@ -96,6 +96,14 @@ const formatDate = (dateString: string | undefined) => {
       <v-btn
         color="primary"
         variant="outlined"
+        prepend-icon="mdi-account-edit"
+        @click="navigateTo('/home/edit-profile')"
+      >
+        プロフィール編集
+      </v-btn>
+      <v-btn
+        color="primary"
+        variant="outlined"
         prepend-icon="mdi-lock-reset"
         @click="navigateTo('/home/change-password')"
       >
