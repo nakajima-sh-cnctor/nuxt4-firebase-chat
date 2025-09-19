@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  modules: ['@nuxt/eslint', 'vuetify-nuxt-module'],
+  modules: ['@nuxt/eslint', 'vuetify-nuxt-module', '@pinia/nuxt'],
 
   // Firebase設定
   runtimeConfig: {
@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   },
 
   // プラグインとコンポーザブルを有効化
-  plugins: ['plugins/firebase.client.ts'],
+  plugins: ['~/plugins/firebase.client.ts'],
 
   // コンポーザブルを自動インポート
   imports: {
