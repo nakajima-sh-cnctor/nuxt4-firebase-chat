@@ -43,5 +43,10 @@ const handleProfileSubmit = async (data: {
       />
       <ProfileForm :is-submitting="loading" @submit="handleProfileSubmit" />
     </v-card-item>
+    <v-card-actions class="justify-center">
+      <v-btn variant="text" color="primary" @click="navigateTo('/home')">
+        ホームに戻る
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>

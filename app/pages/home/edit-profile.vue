@@ -98,5 +98,10 @@ const handleProfileSubmit = async (data: {
         <p class="mt-4">プロフィール情報を読み込み中...</p>
       </div>
     </v-card-item>
+    <v-card-actions class="justify-center">
+      <v-btn variant="text" color="primary" @click="navigateTo('/home')">
+        ホームに戻る
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
