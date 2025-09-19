@@ -1,16 +1,15 @@
 <script setup lang="ts">
-const loading = ref(true)
-onMounted(() => {
-  setTimeout(() => {
-    loading.value = false
-  }, 1500)
-})
+interface Props {
+  loading: boolean
+}
+
+const props = defineProps<Props>()
 </script>
 
 <template>
   <div>
     <!-- ローディング状態 -->
-    <div v-if="loading" class="loading">
+    <div v-if="props.loading" class="loading">
       <v-progress-circular
         indeterminate
         color="primary"
