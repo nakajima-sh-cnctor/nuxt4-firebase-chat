@@ -2,7 +2,8 @@
 import type { ProfileData } from '~/composables/useProfile'
 
 // 認証関連のcomposableを使用
-const { user, logout, loading } = useAuth()
+const { logout } = useAuthStore()
+const { user } = toRefs(useAuthStore())
 
 // プロフィール関連のcomposableを使用
 const { getProfile, loading: profileLoading } = useProfile()
@@ -72,7 +73,7 @@ const handleLogout = async () => {
 
 <template>
   <!-- 認証済みユーザー -->
-  <v-card v-if="!loading" class="mx-auto" max-width="600">
+  <v-card class="mx-auto" max-width="600">
     <v-card-item>
       <v-card-title class="text-center">
         ようこそ、{{ user?.email }}さん！
