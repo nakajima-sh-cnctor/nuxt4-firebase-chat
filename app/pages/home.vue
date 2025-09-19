@@ -2,15 +2,11 @@
 import AuthLoading from '~/components/AuthLoading.vue'
 import { useAuthStore } from '~/stores/auth'
 
-const { startAuthListener, stopAuthListener } = useAuthStore()
-const { loading } = toRefs(useAuthStore())
+definePageMeta({
+  middleware: ['auth'], // もしくは 'auth'
+})
 
-onMounted(async () => {
-  startAuthListener()
-})
-onUnmounted(() => {
-  stopAuthListener()
-})
+const { loading } = toRefs(useAuthStore())
 </script>
 
 <template>
