@@ -63,16 +63,24 @@ pnpm dev
 │   ├── app.vue                    # Main application component
 │   ├── components/
 │   │   ├── AuthForm.vue          # Authentication form component
-│   │   └── PasswordChangeForm.vue # Password change form component
+│   │   ├── AuthLoading.vue       # Authentication loading component
+│   │   ├── PasswordChangeForm.vue # Password change form component
+│   │   └── ProfileForm.vue       # Profile form component
 │   ├── composables/
-│   │   └── useAuth.ts            # Authentication composable
-│   └── pages/
-│       ├── home/
-│       │   ├── change-password.vue # Password change page
-│       │   └── index.vue         # Home page
-│       ├── home.vue              # Home layout
-│       ├── login.vue             # Login page
-│       └── signup.vue            # Signup page
+│   │   ├── useAuth.ts            # Authentication composable
+│   │   ├── useDateFormat.ts      # Date formatting composable
+│   │   └── useProfile.ts         # Profile management composable
+│   ├── middleware/               # Route middleware
+│   ├── pages/
+│   │   ├── home/
+│   │   │   ├── change-password.vue # Password change page
+│   │   │   ├── create-profile.vue  # Profile creation page
+│   │   │   ├── edit-profile.vue    # Profile editing page
+│   │   │   └── index.vue         # Home page
+│   │   ├── home.vue              # Home layout
+│   │   ├── login.vue             # Login page
+│   │   └── signup.vue            # Signup page
+│   └── store/                    # State management
 ├── plugins/
 │   └── firebase.client.ts        # Firebase initialization
 ├── public/
