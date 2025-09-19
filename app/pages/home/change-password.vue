@@ -3,7 +3,8 @@
 import PasswordChangeForm from '~/components/PasswordChangeForm.vue'
 
 // 認証関連のcomposableを使用
-const { changePassword, loading } = useAuth()
+const { changePassword } = useAuthStore()
+const { loading } = toRefs(useAuthStore())
 
 // エラー状態と成功状態の管理
 const error = ref('')

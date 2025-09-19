@@ -27,9 +27,10 @@ const fetchProfile = async () => {
   const result = await getProfile(user.value.uid)
 
   if (result.error) {
-    // プロフィールが見つからない場合は作成画面にリダイレクト
+    // プロフィールが見つからない場合はエラーメッセージを設定
     if (result.error.message === 'プロフィールが見つかりません') {
-      await navigateTo('/home/create-profile')
+      profileError.value =
+        'プロフィールが作成されていません。下のボタンからプロフィールを作成してください。'
       return
     }
     profileError.value = result.error.message
@@ -37,17 +38,6 @@ const fetchProfile = async () => {
     profile.value = result.data
   }
 }
-
-// ユーザーが認証されたらプロフィールを取得
-watch(
-  user,
-  (newUser) => {
-    if (newUser) {
-      fetchProfile()
-    }
-  },
-  { immediate: true }
-)
 
 // ログアウト処理
 const handleLogout = async () => {
@@ -69,6 +59,10 @@ const handleLogout = async () => {
     logoutLoading.value = false
   }
 }
+
+onMounted(() => {
+  fetchProfile()
+})
 </script>
 
 <template>
@@ -138,13 +132,29 @@ const handleLogout = async () => {
         </div>
 
         <!-- プロフィールエラー -->
-        <v-alert
-          v-else-if="profileError"
-          type="warning"
-          :text="profileError"
-          variant="tonal"
-          class="mb-4"
-        ></v-alert>
+        <div v-else-if="profileError">
+          <v-alert
+            type="warning"
+            :text="profileError"
+            variant="tonal"
+            class="mb-4"
+          ></v-alert>
+
+          <!-- プロフィール作成ボタン -->
+          <div
+            v-if="profileError.includes('プロフィールが作成されていません')"
+            class="text-center"
+          >
+            <v-btn
+              color="primary"
+              variant="elevated"
+              prepend-icon="mdi-account-plus"
+              @click="navigateTo('/home/create-profile')"
+            >
+              プロフィールを作成
+            </v-btn>
+          </div>
+        </div>
 
         <!-- プロフィール情報表示 -->
         <v-list v-else-if="profile">

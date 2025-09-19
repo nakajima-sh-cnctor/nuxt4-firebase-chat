@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import AuthForm from '~/components/AuthForm.vue'
 
-const { signup, loading } = useAuth()
+const { signup } = useAuthStore()
+const { loading } = toRefs(useAuthStore())
 
 const error = ref('')
 
@@ -13,7 +14,7 @@ const signupSubmit = async (data: { email: string; password: string }) => {
     error.value = result.error.message
   } else {
     // ログイン成功時にindexページに遷移
-    await navigateTo('/login')
+    await navigateTo('/home')
   }
 }
 </script>

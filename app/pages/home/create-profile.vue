@@ -2,7 +2,7 @@
 import ProfileForm from '~/components/ProfileForm.vue'
 
 const { saveProfile, loading } = useProfile()
-const { user } = useAuth()
+const { user } = toRefs(useAuthStore())
 
 const error = ref('')
 

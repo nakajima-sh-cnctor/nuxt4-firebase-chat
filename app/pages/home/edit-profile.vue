@@ -3,7 +3,7 @@ import ProfileForm from '~/components/ProfileForm.vue'
 import type { ProfileData } from '~/composables/useProfile'
 
 const { getProfile, updateProfile, loading } = useProfile()
-const { user } = useAuth()
+const { user } = toRefs(useAuthStore())
 
 const error = ref('')
 const profile = ref<ProfileData | null>(null)

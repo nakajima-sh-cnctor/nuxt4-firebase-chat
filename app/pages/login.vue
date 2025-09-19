@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AuthForm from '~/components/AuthForm.vue'
 
-const { login } = useAuth()
+const { login } = useAuthStore()
 
 const error = ref('')
 

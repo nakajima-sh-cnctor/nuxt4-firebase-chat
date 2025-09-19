@@ -1,5 +1,8 @@
 import {
   onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  updatePassword,
+  signInWithEmailAndPassword,
   signOut,
   type User,
   type Auth,
@@ -9,17 +12,17 @@ export const useAuthStore = defineStore('auth', () => {
   const { $auth } = useNuxtApp()
   const auth = $auth as Auth | null
   const user = ref<User | null>(null)
-  const loading = ref(true)
+  const loading = ref(false)
   let unsubscribe: (() => void) | null = null
 
   // 認証リスナーを開始
   const startAuthListener = () => {
+    loading.value = true
     if (!auth || unsubscribe) return
 
     unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       user.value = currentUser
       loading.value = false
-      console.log(loading.value)
 
       // ユーザーが未認証の場合、ログインページにリダイレクト
       if (!currentUser) {
@@ -28,8 +31,52 @@ export const useAuthStore = defineStore('auth', () => {
     })
   }
 
+  // ログイン
+  const login = async (email: string, password: string) => {
+    if (!auth) {
+      return {
+        user: null,
+        error: new Error('Firebase認証が初期化されていません'),
+      }
+    }
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      return { user: userCredential.user, error: null }
+    } catch (error) {
+      return { user: null, error: error as Error }
+    }
+  }
+
+  // サインアップ
+  const signup = async (email: string, password: string) => {
+    loading.value = true
+    if (!auth) {
+      return {
+        user: null,
+        error: new Error('Firebase認証が初期化されていません'),
+      }
+    }
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      return { user: userCredential.user, error: null }
+    } catch (error) {
+      return { user: null, error: error as Error }
+    } finally {
+      loading.value = false
+    }
+  }
+
   // ログアウト
   const logout = async () => {
+    loading.value = true
     if (!auth) {
       return { error: new Error('Firebase認証が初期化されていません') }
     }
@@ -38,6 +85,8 @@ export const useAuthStore = defineStore('auth', () => {
       return { error: null }
     } catch (error) {
       return { error: error as Error }
+    } finally {
+      loading.value = false
     }
   }
 
@@ -49,16 +98,36 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  // パスワード変更
+  const changePassword = async (newPassword: string) => {
+    if (!auth || !user.value) {
+      return {
+        error: new Error('ユーザーが認証されていません'),
+      }
+    }
+    try {
+      await updatePassword(user.value, newPassword)
+      return { error: null }
+    } catch (error) {
+      return { error: error as Error }
+    }
+  }
+
   // ストアが破棄される際にリスナーをクリーンアップ
   onScopeDispose(() => {
     stopAuthListener()
   })
 
   return {
+    // ユーザー関連
     user,
     loading,
+    // 認証関連
+    signup,
+    login,
     startAuthListener,
     stopAuthListener,
     logout,
+    changePassword,
   }
 })
