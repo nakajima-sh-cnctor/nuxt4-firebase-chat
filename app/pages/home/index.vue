@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import type { ProfileData } from '~/composables/useProfile'
-
 // 認証関連のcomposableを使用
 const { logout } = useAuthStore()
 const { user } = toRefs(useAuthStore())
-
-// プロフィール関連のcomposableを使用
-const { getProfile, loading: profileLoading } = useProfile()
+const { profile } = toRefs(useProfileStore())
 
 // 日付フォーマット用のcomposableを使用
 const { formatDate } = useDateFormat()
@@ -14,30 +10,6 @@ const { formatDate } = useDateFormat()
 // エラー状態とローディング状態の管理
 const error = ref('')
 const logoutLoading = ref(false)
-
-// プロフィール情報の状態管理
-const profile = ref<ProfileData | null>(null)
-const profileError = ref('')
-
-// プロフィール情報を取得
-const fetchProfile = async () => {
-  if (!user.value?.uid) return
-
-  profileError.value = ''
-  const result = await getProfile(user.value.uid)
-
-  if (result.error) {
-    // プロフィールが見つからない場合はエラーメッセージを設定
-    if (result.error.message === 'プロフィールが見つかりません') {
-      profileError.value =
-        'プロフィールが作成されていません。下のボタンからプロフィールを作成してください。'
-      return
-    }
-    profileError.value = result.error.message
-  } else {
-    profile.value = result.data
-  }
-}
 
 // ログアウト処理
 const handleLogout = async () => {
@@ -59,10 +31,6 @@ const handleLogout = async () => {
     logoutLoading.value = false
   }
 }
-
-onMounted(() => {
-  fetchProfile()
-})
 </script>
 
 <template>
@@ -122,29 +90,17 @@ onMounted(() => {
       <div class="profile-section">
         <h3 class="text-h6 mb-3">プロフィール情報</h3>
 
-        <!-- プロフィールローディング -->
-        <div v-if="profileLoading" class="text-center py-4">
-          <v-progress-circular
-            indeterminate
-            color="primary"
-          ></v-progress-circular>
-          <p class="mt-2">プロフィール情報を読み込み中...</p>
-        </div>
-
         <!-- プロフィールエラー -->
-        <div v-else-if="profileError">
+        <div v-if="!profile">
           <v-alert
             type="warning"
-            :text="profileError"
+            text="プロフィールが作成されていません。下のボタンからプロフィールを作成してください。"
             variant="tonal"
             class="mb-4"
           ></v-alert>
 
           <!-- プロフィール作成ボタン -->
-          <div
-            v-if="profileError.includes('プロフィールが作成されていません')"
-            class="text-center"
-          >
+          <div class="text-center">
             <v-btn
               color="primary"
               variant="elevated"

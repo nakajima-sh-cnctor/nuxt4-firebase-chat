@@ -18,15 +18,22 @@ export const useAuthStore = defineStore('auth', () => {
   // 認証リスナーを開始
   const startAuthListener = () => {
     loading.value = true
-    if (!auth || unsubscribe) return
+    if (!auth || unsubscribe) {
+      loading.value = false
+      return
+    }
 
-    unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       user.value = currentUser
       loading.value = false
 
       // ユーザーが未認証の場合、ログインページにリダイレクト
       if (!currentUser) {
         navigateTo('/login')
+      } else {
+        // ユーザーが認証された場合、プロフィールを取得
+        const profileStore = useProfileStore()
+        await profileStore.getProfile(currentUser.uid)
       }
     })
   }

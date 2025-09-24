@@ -1,44 +1,11 @@
 <script setup lang="ts">
 import ProfileForm from '~/components/ProfileForm.vue'
-import type { ProfileData } from '~/composables/useProfile'
 
-const { getProfile, updateProfile, loading } = useProfile()
+const { updateProfile, loading } = useProfileStore()
 const { user } = toRefs(useAuthStore())
+const { profile } = toRefs(useProfileStore())
 
 const error = ref('')
-const profile = ref<ProfileData | null>(null)
-
-// ユーザー情報が取得できた時にプロフィール情報を取得
-const loadProfile = async () => {
-  if (!user.value?.uid) {
-    return
-  }
-
-  const { data, error: getProfileError } = await getProfile(user.value.uid)
-
-  if (getProfileError) {
-    error.value = getProfileError.message
-    return
-  }
-
-  if (!data) {
-    error.value = 'プロフィールが見つかりません'
-    return
-  }
-
-  profile.value = data
-}
-
-// ユーザー情報の変更を監視
-watch(
-  user,
-  (newUser) => {
-    if (newUser?.uid) {
-      loadProfile()
-    }
-  },
-  { immediate: true }
-)
 
 const handleProfileSubmit = async (data: {
   nickname: string
