@@ -21,7 +21,6 @@ export interface Thread {
 export const useThreadStore = defineStore('thread', () => {
   const { $firestore } = useNuxtApp()
   const firestore = $firestore as Firestore | null
-  const threads = ref<Thread[]>([])
   const loading = ref(false)
 
   // スレッドを作成
@@ -65,8 +64,6 @@ export const useThreadStore = defineStore('thread', () => {
         updatedAt: new Date(),
       }
 
-      threads.value.unshift(newThread)
-
       return { thread: newThread, error: null }
     } catch (error) {
       return { thread: null, error: error as Error }
@@ -107,7 +104,6 @@ export const useThreadStore = defineStore('thread', () => {
         })
       })
 
-      threads.value = threadsList
       return { threads: threadsList, error: null }
     } catch (error) {
       return { threads: [], error: error as Error }
@@ -117,7 +113,6 @@ export const useThreadStore = defineStore('thread', () => {
   }
 
   return {
-    threads,
     loading,
     createThread,
     getThreads,

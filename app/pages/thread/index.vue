@@ -1,11 +1,14 @@
 <script setup lang="ts">
 const { getThreads } = useThreadStore()
-const { loading, threads } = toRefs(useThreadStore())
+const { loading } = toRefs(useThreadStore())
 const { formatRelativeTime } = useDateFormat()
+
+const threads = ref<Thread[]>([])
 
 // ページ読み込み時にスレッド一覧を取得
 onMounted(async () => {
-  await getThreads()
+  const { threads: fetchedThreads } = await getThreads()
+  threads.value = fetchedThreads
 })
 
 // スレッド詳細ページに遷移
