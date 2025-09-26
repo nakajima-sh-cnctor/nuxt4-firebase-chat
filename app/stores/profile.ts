@@ -10,6 +10,7 @@ export interface ProfileData {
   nickname: string
   age: number
   gender: string
+  avatar?: string
   createdAt: Date
   updatedAt: Date
 }

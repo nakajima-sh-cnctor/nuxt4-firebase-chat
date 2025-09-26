@@ -1,0 +1,52 @@
+{
+    "rules": {
+        "messages": {
+            "$threadId": {
+                ".read": "auth != null",
+                ".write": "auth != null",
+                ".validate": "newData.hasChildren(['text', 'authorId', 'authorName', 'timestamp', 'threadId'])",
+                "text": {
+                    ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 1000"
+                },
+                "authorId": {
+                    ".validate": "newData.isString() && newData.val() == auth.uid"
+                },
+                "authorName": {
+                    ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 50"
+                },
+                "authorAvatar": {
+                    ".validate": "newData.isString() && newData.val().length <= 500"
+                },
+                "timestamp": {
+                    ".validate": "newData.isNumber()"
+                },
+                "threadId": {
+                    ".validate": "newData.isString() && newData.val() == $threadId"
+                }
+            }
+        },
+        "threads": {
+            ".read": "auth != null",
+            ".write": "auth != null",
+            ".validate": "newData.hasChildren(['title', 'description', 'authorId', 'authorName', 'createdAt', 'updatedAt'])",
+            "title": {
+                ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+            },
+            "description": {
+                ".validate": "newData.isString() && newData.val().length <= 500"
+            },
+            "authorId": {
+                ".validate": "newData.isString() && newData.val() == auth.uid"
+            },
+            "authorName": {
+                ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 50"
+            },
+            "createdAt": {
+                ".validate": "newData.isNumber()"
+            },
+            "updatedAt": {
+                ".validate": "newData.isNumber()"
+            }
+        }
+    }
+}

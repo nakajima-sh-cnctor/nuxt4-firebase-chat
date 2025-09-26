@@ -3,6 +3,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
+  // SPAモードに設定（リロード時の404エラーを防ぐ）
+  ssr: false,
+
   modules: ['@nuxt/eslint', 'vuetify-nuxt-module', '@pinia/nuxt'],
 
   // Firebase設定
