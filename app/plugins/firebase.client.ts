@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, type Auth } from 'firebase/auth'
 import { getFirestore, type Firestore } from 'firebase/firestore'
+import { getDatabase, type Database } from 'firebase/database'
 import { defineNuxtPlugin, useRuntimeConfig } from 'nuxt/app'
 
 interface FirebaseConfig {
@@ -10,6 +11,7 @@ interface FirebaseConfig {
   storageBucket: string
   messagingSenderId: string
   appId: string
+  databaseURL: string
 }
 
 export default defineNuxtPlugin(() => {
@@ -28,6 +30,7 @@ export default defineNuxtPlugin(() => {
       provide: {
         auth: null as Auth | null,
         firestore: null as Firestore | null,
+        database: null as Database | null,
       },
     }
   }
@@ -39,17 +42,20 @@ export default defineNuxtPlugin(() => {
     storageBucket: config.public.firebase.storageBucket,
     messagingSenderId: config.public.firebase.messagingSenderId,
     appId: config.public.firebase.appId,
+    databaseURL: config.public.firebase.databaseURL,
   }
 
   // Firebase初期化
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
   const firestore = getFirestore(app)
+  const database = getDatabase(app)
 
   return {
     provide: {
       auth: auth as Auth | null,
       firestore: firestore as Firestore,
+      database: database as Database,
     },
   }
 })
