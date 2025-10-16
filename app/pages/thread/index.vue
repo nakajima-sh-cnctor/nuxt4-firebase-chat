@@ -32,6 +32,16 @@ const goToThread = (threadId: string) => {
             <p class="text-body-1 text-medium-emphasis">
               みんなのスレッドをチェックしよう
             </p>
+            <v-btn
+              color="primary"
+              variant="outlined"
+              size="small"
+              prepend-icon="mdi-account"
+              class="mt-2"
+              @click="navigateTo('/home')"
+            >
+              プロフィールに戻る
+            </v-btn>
           </div>
           <div class="flex-shrink-0">
             <v-btn

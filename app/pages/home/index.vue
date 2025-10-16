@@ -155,6 +155,14 @@ const handleLogout = async () => {
       <v-btn
         color="primary"
         variant="outlined"
+        prepend-icon="mdi-forum"
+        @click="navigateTo('/thread')"
+      >
+        掲示板一覧
+      </v-btn>
+      <v-btn
+        color="primary"
+        variant="outlined"
         prepend-icon="mdi-account-edit"
         @click="navigateTo('/home/edit-profile')"
       >
